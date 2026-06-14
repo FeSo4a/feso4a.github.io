@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论伪人思维 - FeSo4a</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', '宋体', 'SimSun', serif;
+            background: linear-gradient(135deg, #f5e6d3 0%, #e8d5b7 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139, 69, 19, 0.03) 2px,
+                    rgba(139, 69, 19, 0.03) 4px
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(to bottom, rgba(139, 69, 19, 0.1), transparent);
+            border-bottom: 3px solid #8b4513;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        header::before,
+        header::after {
+            content: '❖';
+            position: absolute;
+            bottom: -15px;
+            font-size: 24px;
+            color: #8b4513;
+        }
+
+        header::before {
+            left: 30%;
+        }
+
+        header::after {
+            right: 30%;
+        }
+
+        h1 {
+            font-size: 42px;
+            color: #5c3a21;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .article-meta {
+            font-size: 16px;
+            color: #8b6914;
+            letter-spacing: 3px;
+            margin-top: 15px;
+        }
+
+        .article-meta span {
+            margin: 0 15px;
+        }
+
+        nav {
+            background-color: rgba(139, 69, 19, 0.05);
+            border: 2px solid #8b4513;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        nav li a {
+            color: #5c3a21;
+            text-decoration: none;
+            font-size: 16px;
+            letter-spacing: 2px;
+            padding: 8px 16px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        nav li a:hover {
+            border: 1px solid #8b4513;
+            background-color: rgba(139, 69, 19, 0.1);
+            border-radius: 4px;
+        }
+
+        main {
+            background-color: rgba(255, 253, 240, 0.9);
+            border: 2px solid #d4a574;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, #8b4513, #d4a574, #8b4513);
+        }
+
+        .article-content {
+            color: #6b4423;
+            line-height: 2.2;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            text-indent: 2em;
+        }
+
+        .article-content h2 {
+            color: #5c3a21;
+            font-size: 26px;
+            margin: 35px 0 20px;
+            letter-spacing: 4px;
+            border-bottom: 2px solid #d4a574;
+            padding-bottom: 10px;
+            position: relative;
+        }
+
+        .article-content h2::after {
+            content: '✦';
+            position: absolute;
+            right: 0;
+            bottom: -12px;
+            color: #8b4513;
+            font-size: 16px;
+        }
+
+        .article-content h3 {
+            color: #5c3a21;
+            font-size: 22px;
+            margin: 25px 0 15px;
+            letter-spacing: 3px;
+        }
+
+        .article-content blockquote {
+            margin: 25px 0;
+            padding: 20px 30px;
+            border-left: 4px solid #8b4513;
+            background-color: rgba(139, 69, 19, 0.05);
+            font-style: italic;
+            color: #5c3a21;
+        }
+
+        .article-content blockquote p {
+            text-indent: 0;
+            margin-bottom: 0;
+        }
+
+        /*noinspection ALL*/
+        .article-content .poem-block {
+            margin: 30px 0;
+            padding: 25px 30px;
+            background-color: rgba(139, 69, 19, 0.03);
+            border: 1px solid #d4a574;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .article-content .poem-block p {
+            text-indent: 0;
+            margin-bottom: 10px;
+            line-height: 2;
+        }
+
+        .article-content .poem-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .article-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #d4a574;
+        }
+
+        .nav-button {
+            display: inline-block;
+            color: #5c3a21;
+            text-decoration: none;
+            font-size: 16px;
+            letter-spacing: 2px;
+            padding: 12px 24px;
+            border: 1px solid #8b4513;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 253, 240, 0.6);
+        }
+
+        .nav-button:hover {
+            background-color: rgba(139, 69, 19, 0.1);
+            box-shadow: 0 4px 8px rgba(139, 69, 19, 0.2);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(to top, rgba(139, 69, 19, 0.1), transparent);
+            border-top: 2px solid #8b4513;
+            color: #5c3a21;
+            font-size: 14px;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        footer::before {
+            content: '─── ❈ ───';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #8b4513;
+            font-size: 18px;
+            letter-spacing: 8px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+                letter-spacing: 4px;
+            }
+
+            main {
+                padding: 25px;
+            }
+
+            .article-content {
+                font-size: 16px;
+            }
+
+            .article-navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-button {
+                text-align: center;
+            }
+
+            header::before,
+            header::after {
+                display: none;
+            }
+        }
+
+        ::selection {
+            background-color: #d4a574;
+            color: #5c3a21;
+        }
+
+        ::-moz-selection {
+            background-color: #d4a574;
+            color: #5c3a21;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>论伪人思维</h1>
+        <div class="article-meta">
+            <span>作者：FeSo4a</span>
+            <span>分类：议论文</span>
+            <span>日期：二零二六年六月十三日</span>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/index.html">返回首页</a></li>
+            <li><a href="/article/index.html">返回作品集</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <article class="article-content">
+            <blockquote>
+                <p>“社会主义好，社会主义好，社会主义是我们的好领导……”</p>
+            </blockquote>
+            <p>
+                诚然现在已经步入社会主义初级阶段，但社会发展中仍有新的问题。随着互联网深度介入社会生活，新的意识形态博弈随之产生。尤为突出的一点是，传统的现实矛盾正与网络舆论场的新矛盾交织叠加。本文将探讨一种“极端化思维”现象。
+            <p>
+                此处所指，并非具体的某个人，而是一种在特定语境下，人们放弃深度思考，被偏见与情绪裹挟的心理状态。任何人在情绪上头、放弃思考的那一刻，都有可能暂时沦为这种逻辑的载体。我们要反对的是这种非理性的思维模式，而非具体的同胞。
+            <p>
+                这种思维模式的核心症结在于论证逻辑的失效：面对客观事实，他们选择情感回避；面对规则约束，他们惯用双重标准；面对观念分歧，他们将对手“去人性化”，以笔为枪，对自己同胞“口诛笔伐”。更令人忧虑的是，即便被事实点醒，他们往往不知悔改，反而倒打一耙。当这种情绪化浪潮渗透进公共空间，原本具体的社会问题便被模糊了焦点。
+            </p>
+
+            <h2>一、 从优势互补到男女对立</h2>
+            <p>
+                自新文化运动后，经过几代先辈的努力，女性地位不断上升。本来男女之间各有优势，应优势互补，相互取长补短。“妇女能顶半边天”，最初指代的是人格与机会的平等。</p>
+            <p>
+                但现如今，部分极端言论使平权走向了对立（当然，极端男权的唯出身论同样也是谬误）。平日里常见的一种话术是：“你们男生被宠了几千年还不够吗？”既然厌恶封建特权，就应追求实质平等，而非反向的特权——这种以性别为由头的对立，恰恰消解了“半边天”所倡导的独立精神。
+            <p>
+                不仅如此，这种思维陷阱还将双标渗透到了生活中——招聘市场上，已婚未育女性的简历通过率因“生育成本”被压低；而在司法判例中，同样的伤害后果，量刑有时会因性别产生差异。这种极端化的观点正将性别对立渗入三餐四季。我认为大家应以男女平等为荣，以性别双标为耻。
+            <p>
+                至于彩礼，本是双方家庭对新人的扶持，如今却被异化为敛财手段，这是对女性的物化，也是对婚姻的亵渎。我们抵制的是天价彩礼的封建余毒，而非否认婚姻中的经济保障。同时，真正的平权也不意味着无视差异——体育竞技的分组、孕产期的特殊保护，这些是基于生理特征的合理关怀，绝非特权。
+            <p>
+                总而言之，当下的年轻人，不应因生理原因被偏袒或贬低，同时也需警惕极端言论在其中的挑拨离间。
+            </p>
+
+            <h2>二、 从兼收并蓄到“文化恐慌”</h2>
+            <p>互联网的普及还滋生出了新的亚文化——二次元文化。它都有着包容开放的特点与共性。
+            <p>
+                互联网的普及催生了二次元等亚文化。它们本有着包容开放的特质，是文化交流的大平台，任何国家都可以往其中加入自己的独有文化。
+            <p>
+                然而，有些缺乏辨别力的声音将这些新兴文化一概斥为“文化入侵”。事实上，青少年沉迷网络或消费失度，本质上是现实关怀缺失的投射。孩子们在现实中处处碰壁，无人安慰，才会在互联网上寻求精神慰藉。真正的问题在于，部分成年人忽略了自身的引导责任，对年龄限标置若罔闻，却一味将问题归咎于文化载体本身。
+            <p>
+                拿最近的例子来说，某初中生花巨资给自己的OC（原创角色）约稿，网上有不少缺乏辨别能力的网民攻击画师。这位画师本是无罪的——牺牲休息时间特例作画。实际真正失察的是监护人——为何给初中生巨额资金？为何对孩子这一爱好长期失管？这折射出的是家庭教育与媒介素养的缺位。
+            <p>
+                更值得警惕的是，有些以“爱国”为幌子的极端言论会攻击正常同胞。这种“假爱国”实为网络暴力。事实上，浙江等地方共青团将头像换为二次元形象，吸引了大量年轻新生力量投入社会主义建设，这正说明主流文化对亚文化的吸纳与引导才是正道。
+            <p>
+                当然，亚文化圈子内部也存在不良风气，如党同伐异、过度炫耀等。这些仍需整改，但不能因噎废食，更不能以此否定整个群体的创造力与活力。
+            </p>
+
+            <h2>三、从开放外交到封闭排外</h2>
+            <p>
+                近期中日关系的波动，引起了人们的警觉，但也引来了大批盲目排外的情绪化言论。
+            <p>
+                对于国际局势的判断应当交给专业的政治家与外交官，而非被民粹情绪左右。我们固然要有防备心，但在对方未进攻之前，大肆宣扬开战，既不符合我国的外交理念，也容易落入他人陷阱。战争从来不是数字游戏，其带来的牺牲与破坏远超想象。
+            <p>
+                如第二章所述，现在有不少“爱国言论”在进行网络暴力。虽然官方有相应的贸易政策，但民间的“抵制日货”往往打错了靶心。例如抵制日料店就是不必要的，因为其食材大多来源于中国，店面也开在中国，反倒有助于中国的经济发展。这种“抵制”本质上是一种缺乏理性的自我消耗，不仅未能伤及对手，反而误伤了同胞的利益。
+            <p>
+                同样，抵制国产动漫游戏产业更是短视之举，国内产业链下游养活着大量本土创作者和岗位，赶尽杀绝无异于自断手脚。
+            <p>
+                最后，必须警惕极端思维对公共利益的侵蚀。近期热议的“上海网约车司机拒载日本乘客”事件便是缩影：司机将个人情感凌驾于职业契约之上，固然有其历史伤痛，但部分舆论将此举美化为“硬气”，这才是危险信号。从法治角度看，无正当理由拒载即属违规；从国际观感看，真正愿意来华投资的人，看重的是稳定的规则预期，而非民粹式的情绪宣泄。
+            <p>
+                当网络上为一桩违约行为喝彩时，实际上是在吓退潜在的合作者。这非但不是爱国，反而是以“爱国”之名，行损国之实。
+            </p>
+
+            <h2>总结</h2>
+            <p>
+                综上所述，所谓“极端化思维”，实则是互联网高速发展期伴生的思想杂质。
+            <p>
+                我们在性别争论中看到了旧封建思想的回潮与新资本叙事的推波助澜；在文化碰撞中看到了保守与开放的摩擦；在对外态度上看到了朴素爱国心与民粹主义的模糊边界。
+            <p>
+                同志仍需努力。我们不仅要警惕被这种思维侵蚀，更要用实事求是的作风去粉碎双重标准，用团结友爱的精神去消弭对立，用开放包容的胸怀去迎接文化交流。
+            <p>
+                剔除杂音，方显主旋律；真抓实干，才见社会主义之光明。
+            </p>
+
+            <h2>后记</h2>
+            <p>
+                本文大部分在校内完成，限于学生视角的局限性，若有偏颇之处，愿闻其详，望谅解。同时欢迎各位同志提出修改意见，我会积极改正。</p>
+            <p>
+                最后感谢我的同学们，他们在我创作过程中给予了我很多帮助，提供了一些修改意见。
+            </p>
+
+        </article>
+
+        <div class="article-navigation">
+            <a href="#" class="nav-button">← 上一篇</a>
+            <a href="#" class="nav-button">下一篇 →</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 二零二六年 · 古风雅韵 · FeSo4a</p>
+    </footer>
+</div>
+</body>
+</html>

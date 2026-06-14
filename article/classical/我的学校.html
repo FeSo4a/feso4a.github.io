@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的学校 - FeSo4a</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', '宋体', 'SimSun', serif;
+            background: linear-gradient(135deg, #f5e6d3 0%, #e8d5b7 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139, 69, 19, 0.03) 2px,
+                    rgba(139, 69, 19, 0.03) 4px
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(to bottom, rgba(139, 69, 19, 0.1), transparent);
+            border-bottom: 3px solid #8b4513;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        header::before,
+        header::after {
+            content: '❖';
+            position: absolute;
+            bottom: -15px;
+            font-size: 24px;
+            color: #8b4513;
+        }
+
+        header::before {
+            left: 30%;
+        }
+
+        header::after {
+            right: 30%;
+        }
+
+        h1 {
+            font-size: 42px;
+            color: #5c3a21;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .article-meta {
+            font-size: 16px;
+            color: #8b6914;
+            letter-spacing: 3px;
+            margin-top: 15px;
+        }
+
+        .article-meta span {
+            margin: 0 15px;
+        }
+
+        nav {
+            background-color: rgba(139, 69, 19, 0.05);
+            border: 2px solid #8b4513;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        nav li a {
+            color: #5c3a21;
+            text-decoration: none;
+            font-size: 16px;
+            letter-spacing: 2px;
+            padding: 8px 16px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        nav li a:hover {
+            border: 1px solid #8b4513;
+            background-color: rgba(139, 69, 19, 0.1);
+            border-radius: 4px;
+        }
+
+        main {
+            background-color: rgba(255, 253, 240, 0.9);
+            border: 2px solid #d4a574;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, #8b4513, #d4a574, #8b4513);
+        }
+
+        .article-content {
+            color: #6b4423;
+            line-height: 2.2;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            text-indent: 2em;
+        }
+
+        .article-content h2 {
+            color: #5c3a21;
+            font-size: 26px;
+            margin: 35px 0 20px;
+            letter-spacing: 4px;
+            border-bottom: 2px solid #d4a574;
+            padding-bottom: 10px;
+            position: relative;
+        }
+
+        .article-content h2::after {
+            content: '✦';
+            position: absolute;
+            right: 0;
+            bottom: -12px;
+            color: #8b4513;
+            font-size: 16px;
+        }
+
+        .article-content h3 {
+            color: #5c3a21;
+            font-size: 22px;
+            margin: 25px 0 15px;
+            letter-spacing: 3px;
+        }
+
+        .article-content blockquote {
+            margin: 25px 0;
+            padding: 20px 30px;
+            border-left: 4px solid #8b4513;
+            background-color: rgba(139, 69, 19, 0.05);
+            font-style: italic;
+            color: #5c3a21;
+        }
+
+        .article-content blockquote p {
+            text-indent: 0;
+            margin-bottom: 0;
+        }
+
+        /*noinspection ALL*/
+        .article-content .poem-block {
+            margin: 30px 0;
+            padding: 25px 30px;
+            background-color: rgba(139, 69, 19, 0.03);
+            border: 1px solid #d4a574;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .article-content .poem-block p {
+            text-indent: 0;
+            margin-bottom: 10px;
+            line-height: 2;
+        }
+
+        .article-content .poem-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .article-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #d4a574;
+        }
+
+        .nav-button {
+            display: inline-block;
+            color: #5c3a21;
+            text-decoration: none;
+            font-size: 16px;
+            letter-spacing: 2px;
+            padding: 12px 24px;
+            border: 1px solid #8b4513;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 253, 240, 0.6);
+        }
+
+        .nav-button:hover {
+            background-color: rgba(139, 69, 19, 0.1);
+            box-shadow: 0 4px 8px rgba(139, 69, 19, 0.2);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(to top, rgba(139, 69, 19, 0.1), transparent);
+            border-top: 2px solid #8b4513;
+            color: #5c3a21;
+            font-size: 14px;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        footer::before {
+            content: '─── ❈ ───';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #8b4513;
+            font-size: 18px;
+            letter-spacing: 8px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+                letter-spacing: 4px;
+            }
+
+            main {
+                padding: 25px;
+            }
+
+            .article-content {
+                font-size: 16px;
+            }
+
+            .article-navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-button {
+                text-align: center;
+            }
+
+            header::before,
+            header::after {
+                display: none;
+            }
+        }
+
+        ::selection {
+            background-color: #d4a574;
+            color: #5c3a21;
+        }
+
+        ::-moz-selection {
+            background-color: #d4a574;
+            color: #5c3a21;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>我的学校</h1>
+        <div class="article-meta">
+            <span>作者：FeSo4a</span>
+            <span>分类：七言绝句 - 课堂作业</span>
+            <span>日期：二零二五年五月二十八日</span>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/index.html">返回首页</a></li>
+            <li><a href="/article/index.html">返回作品集</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <article class="article-content">
+            <h2>正文</h2>
+            <div class="poem-block">
+                天色暝瞑漏许青，<br>
+                湖中锦鲤似跃金。<br>
+                朗朗书声响彻寝，<br>
+                放学得背星号题。
+            </div>
+
+            <h2>译文</h2>
+            <p>
+                天色昏暗，漏出些许青色，湖中的鱼儿游来游去，像跳动的金子。从教室里的朗朗书声响彻整个学校，晚上还得背完星号题才能放学啊！
+            </p>
+
+            <h2>中心</h2>
+            <p>
+                体育课的自由时间，作者在赏鱼时听到别的班级诵诗，有感而发，流露了诗人对学生们的关系、同情，以及想到放学自己也要背完星号题才能回家的悲伤。
+            </p>
+
+        </article>
+
+        <div class="article-navigation">
+            <a href="#" class="nav-button">← 上一篇</a>
+            <a href="#" class="nav-button">下一篇 →</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 二零二六年 · 古风雅韵 · FeSo4a</p>
+    </footer>
+</div>
+</body>
+</html>
